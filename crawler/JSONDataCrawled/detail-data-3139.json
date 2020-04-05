@@ -7891,11 +7891,7 @@
   {
     "recipe": {
       "publisher": "Simply Recipes",
-      "ingredients": [
-        "One medium sized pumpkin",
-        "Salt",
-        "Olive oil\n"
-      ],
+      "ingredients": ["One medium sized pumpkin", "Salt", "Olive oil\n"],
       "source_url": "http://www.simplyrecipes.com/recipes/toasted_pumpkin_seeds/",
       "recipe_id": "37079",
       "image_url": "http://forkify-api.herokuapp.com/images/roastedpumpkinseeds520300x2008929fa22.jpg",
@@ -34396,10 +34392,7 @@
   {
     "recipe": {
       "publisher": "Cookstr",
-      "ingredients": [
-        "2 oz vodka",
-        "1 oz syrup from canned lychees"
-      ],
+      "ingredients": ["2 oz vodka", "1 oz syrup from canned lychees"],
       "source_url": "http://www.cookstr.com/recipes/lychee-martini",
       "recipe_id": "46770",
       "image_url": "http://forkify-api.herokuapp.com/images/recipe3532a73f.jpg",
@@ -38819,9 +38812,7 @@
   {
     "recipe": {
       "publisher": "Real Simple",
-      "ingredients": [
-        "6 tablespoons passion-fruit nectar\n"
-      ],
+      "ingredients": ["6 tablespoons passion-fruit nectar\n"],
       "source_url": "http://www.realsimple.com/food-recipes/browse-all-recipes/sparkling-passion-fruit-aperitifs-10000000608406/index.html",
       "recipe_id": "37283",
       "image_url": "http://forkify-api.herokuapp.com/images/glassesdrinks_3001ccf7ac6.jpg",
@@ -40319,9 +40310,7 @@
   {
     "recipe": {
       "publisher": "Simply Recipes",
-      "ingredients": [
-        "One ripe pineapple\n"
-      ],
+      "ingredients": ["One ripe pineapple\n"],
       "source_url": "http://www.simplyrecipes.com/recipes/how_to_cut_a_pineapple/",
       "recipe_id": "36474",
       "image_url": "http://forkify-api.herokuapp.com/images/howtocutapineapple300x200055679a7.jpg",
@@ -42113,10 +42102,7 @@
   {
     "recipe": {
       "publisher": "Jamie Oliver",
-      "ingredients": [
-        "1 bottle Tequila",
-        "1-2  pomegranates"
-      ],
+      "ingredients": ["1 bottle Tequila", "1-2  pomegranates"],
       "source_url": "http://www.jamieoliver.com/recipes/fruit-recipes/christmas-spirit-cocktail",
       "recipe_id": "71ecf4",
       "image_url": "http://forkify-api.herokuapp.com/images/141_1_1350896285_lrgc524.jpg",
@@ -45863,10 +45849,7 @@
   {
     "recipe": {
       "publisher": "Real Simple",
-      "ingredients": [
-        "4 English muffins",
-        "2 olive oil\n"
-      ],
+      "ingredients": ["4 English muffins", "2 olive oil\n"],
       "source_url": "http://www.realsimple.com/food-recipes/browse-all-recipes/english-muffin-egg-pizzas-10000000663044/index.html",
       "recipe_id": "38812",
       "image_url": "http://forkify-api.herokuapp.com/images/pizza_300d938bd58.jpg",
@@ -66048,11 +66031,7 @@
   {
     "recipe": {
       "publisher": "Tasty Kitchen",
-      "ingredients": [
-        "1 box 1 box",
-        "1 box 1 box",
-        "1 tub 1 tub"
-      ],
+      "ingredients": ["1 box 1 box", "1 box 1 box", "1 tub 1 tub"],
       "source_url": "http://tastykitchen.com/recipes/desserts/jell-o-poke-cake/",
       "recipe_id": "1f98d4",
       "image_url": "http://forkify-api.herokuapp.com/images/pokecakeba3a.jpg",
@@ -66108,11 +66087,7 @@
   {
     "recipe": {
       "publisher": "Tasty Kitchen",
-      "ingredients": [
-        "1 box 1 box",
-        "1 box 1 box",
-        "1 tub 1 tub"
-      ],
+      "ingredients": ["1 box 1 box", "1 box 1 box", "1 tub 1 tub"],
       "source_url": "http://tastykitchen.com/recipes/desserts/jello-dream-cake-poke-cake/",
       "recipe_id": "87f871",
       "image_url": "http://forkify-api.herokuapp.com/images/gelatin_poke_cake2d07.jpg",
@@ -66125,11 +66100,7 @@
   {
     "recipe": {
       "publisher": "Tasty Kitchen",
-      "ingredients": [
-        "1 box 1 box",
-        "2 boxes 2 boxes",
-        "4 cups 4 cups"
-      ],
+      "ingredients": ["1 box 1 box", "2 boxes 2 boxes", "4 cups 4 cups"],
       "source_url": "http://tastykitchen.com/recipes/desserts/oreo-puddine28099-poke-cake/",
       "recipe_id": "a5d987",
       "image_url": "http://forkify-api.herokuapp.com/images/005410x2734b1a.jpg",
@@ -70607,10 +70578,7 @@
   {
     "recipe": {
       "publisher": "Simply Recipes",
-      "ingredients": [
-        "Duck legs (at least one per person)",
-        "Salt\n"
-      ],
+      "ingredients": ["Duck legs (at least one per person)", "Salt\n"],
       "source_url": "http://www.simplyrecipes.com/recipes/easy_duck_confit/",
       "recipe_id": "36253",
       "image_url": "http://forkify-api.herokuapp.com/images/ghettodunkconfit300x200b3cf5d07.jpg",
