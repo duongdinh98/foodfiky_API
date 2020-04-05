@@ -1,5 +1,3 @@
-const axios = require('axios');
-const fs = require('fs');
 const helper = require('./helper');
 
 const executeWork = async (i, j) => {
@@ -9,12 +7,12 @@ const executeWork = async (i, j) => {
   const listKeys = await helper.getListKeys();
 
   const listKeysTemp = [];
-  for (i; i < j; i++) {
+  for (i; i < j; i += 1) {
     listKeysTemp.push(listKeys[i]);
   }
 
   //   Call to original API based on keywords collected
-  let searchPromises = listKeysTemp.map(async (keyword) => {
+  const searchPromises = listKeysTemp.map(async (keyword) => {
     return helper.callOriginalAPI(keyword);
   });
 
@@ -28,9 +26,9 @@ const executeWork = async (i, j) => {
 function start(counter) {
   if (counter < 128) {
     setTimeout(async function () {
-      let i = counter;
-      let j = counter + 8;
-      counter = counter + 8;
+      const i = counter;
+      const j = counter + 8;
+      counter += 8;
 
       await executeWork(i, j);
 
