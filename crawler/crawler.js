@@ -1,6 +1,6 @@
 const helper = require('./helper');
 
-const executeWork = async (i, j) => {
+const executeSearchWorks = async (i, j) => {
   //   Collecting 128 keywords from <li></li> in .html file
   //   Arr [0, 1, 2, ...127]
   //   Loop 16 iterations - 8 per iteration
@@ -23,17 +23,24 @@ const executeWork = async (i, j) => {
   console.log('Done !');
 };
 
-function start(counter) {
+function startSearchSpider(counter) {
   if (counter < 128) {
     setTimeout(async function () {
       const i = counter;
       const j = counter + 8;
       counter += 8;
 
-      await executeWork(i, j);
+      await executeSearchWorks(i, j);
 
-      start(counter);
+      startSearchSpider(counter);
     }, 5000);
   }
 }
-start(0);
+
+// startSearchSpider(0);
+
+if (process.argv[2] === '--searchSpider') {
+  startSearchSpider(0);
+} else if (process.argv[2] === '--detailsSpider') {
+  console.log('...');
+}

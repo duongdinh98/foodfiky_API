@@ -4,7 +4,7 @@
   "description": "forkifi-api-alternatives",
   "main": "index.js",
   "scripts": {
-    "crawler:search": "node crawler/crawler.js"
+    "crawler:search": "node crawler/crawler.js --searchSpider"
   },
   "author": "Duong Dinh",
   "license": "ISC",
