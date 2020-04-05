@@ -13,12 +13,15 @@ const executeSearchWorks = async (i, j) => {
 
   //   Call to original API based on keywords collected
   const searchPromises = listKeysTemp.map(async (keyword) => {
-    return helper.callOriginalAPI(keyword);
+    return helper.callOriginalAPI(
+      'https://forkify-api.herokuapp.com/api/search?q=',
+      keyword
+    );
   });
 
   const searchResults = await Promise.all(searchPromises);
 
-  helper.writesJsonToFile(searchResults, i);
+  helper.writesJsonToFile(searchResults, i, 'seach-data');
 
   console.log('Done !');
 };
@@ -39,8 +42,28 @@ function startSearchSpider(counter) {
 
 // startSearchSpider(0);
 
+const executeDetailWorks = async (i, j) => {
+  const recipeIds = helper.getAllRecipeIdsMinFile();
+
+  const listIdsTemp = [];
+  for (i; i < j; i += 1) {
+    listIdsTemp.push(recipeIds[i]);
+  }
+
+  const detailPromises = listIdsTemp.map(async (id) => {
+    return helper.callOriginalAPI(
+      'https://forkify-api.herokuapp.com/api/get?rId=',
+      id
+    );
+  });
+
+  const detailResults = await Promise.all(detailPromises);
+
+  helper.writesJsonToFile(detailResults, i, 'detail-data');
+};
+
 if (process.argv[2] === '--searchSpider') {
   startSearchSpider(0);
-} else if (process.argv[2] === '--detailsSpider') {
-  console.log('...');
+} else if (process.argv[2] === '--detailSpider') {
+  executeDetailWorks(0, 3139);
 }

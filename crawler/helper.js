@@ -22,12 +22,12 @@ const options = {
 
 exports.getListKeys = async () => {
   try {
-    let listKeys = [];
+    const listKeys = [];
     console.log('Crawling list keywords...');
     const $ = await rp(options);
 
     // Process html like you would with jQuery...
-    $('.phrases-list li').each(function (index) {
+    $('.phrases-list li').each(function () {
       listKeys.push($(this).text());
     });
 
@@ -38,21 +38,24 @@ exports.getListKeys = async () => {
   }
 };
 
-exports.writesJsonToFile = async (searchData, i) => {
+exports.writesJsonToFile = async (searchData, i, fileName) => {
   try {
     const data = JSON.stringify(searchData, null, 2);
-    fs.writeFileSync(`${__dirname}/JSONDataCrawled/seach-data-${i}.json`, data);
-    console.log('Finished clone JSON to search-data.json !');
+    fs.writeFileSync(
+      `${__dirname}/JSONDataCrawled/${fileName}-${i}.json`,
+      data
+    );
+    console.log(`Finished clone JSON to ${fileName}.json !`);
   } catch (err) {
     console.log('Error with writesJsonToFile() function !');
   }
 };
 
-exports.callOriginalAPI = async (key) => {
+exports.callOriginalAPI = async (url, key) => {
   try {
-    let res = await axios({
+    const res = await axios({
       method: 'GET',
-      url: `https://forkify-api.herokuapp.com/api/search?q=${key}`,
+      url: `${url}${key}`,
     });
 
     res.data.query = key;
@@ -61,4 +64,45 @@ exports.callOriginalAPI = async (key) => {
   } catch (err) {
     console.log(`API call with key: ${key} has failed !`);
   }
+};
+
+// 3140 recipe_id
+exports.getAllRecipeIds = () => {
+  const recipeIds = [];
+
+  for (let i = 8; i <= 128; i += 8) {
+    const searchResults = JSON.parse(
+      fs.readFileSync(
+        `${__dirname}/JSONDataCrawled/seach-data-${i}.json`,
+        'utf-8'
+      )
+    );
+
+    searchResults.forEach((result) => {
+      if (result) {
+        result.recipes.forEach((recipe) => {
+          recipeIds.push(recipe.recipe_id);
+        });
+      }
+    });
+  }
+
+  const recipeIdData = {
+    status: 'crawled',
+    length: recipeIds.length,
+    data: recipeIds,
+  };
+
+  const data = JSON.stringify(recipeIdData, null, 2);
+  fs.writeFileSync(`${__dirname}/JSONDataCrawled/recipe_id.json`, data);
+
+  return recipeIds;
+};
+
+exports.getAllRecipeIdsMinFile = () => {
+  const data = JSON.parse(
+    fs.readFileSync(`${__dirname}/JSONDataCrawled/recipe_id.json`, 'utf-8')
+  );
+
+  return data.data;
 };
