@@ -1,0 +1,19 @@
+{
+  "name": "forkifi_api",
+  "version": "1.0.0",
+  "description": "forkifi-api-alternatives",
+  "main": "index.js",
+  "scripts": {
+    "crawler:search": "node crawler/crawler.js"
+  },
+  "author": "Duong Dinh",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  }
+}
