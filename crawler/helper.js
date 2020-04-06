@@ -38,9 +38,9 @@ exports.getListKeys = async () => {
   }
 };
 
-exports.writesJsonToFile = async (searchData, i, fileName) => {
+exports.writesJsonToFile = async (inputData, i, fileName) => {
   try {
-    const data = JSON.stringify(searchData, null, 2);
+    const data = JSON.stringify(inputData, null, 2);
     fs.writeFileSync(
       `${__dirname}/JSONDataCrawled/${fileName}-${i}.json`,
       data
@@ -66,9 +66,27 @@ exports.callOriginalAPI = async (url, key) => {
   }
 };
 
-// 3140 recipe_id
+const removeDuplicationArr = (arr) => {
+  return Array.from(new Set(arr));
+};
+
+const removeObjectDuplicatedArr = (arr, comp) => {
+  const unique = arr
+    .map((e) => e[comp])
+
+    // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+
+    // eliminate the dead keys & store unique objects
+    .filter((e) => arr[e])
+    .map((e) => arr[e]);
+
+  return unique;
+};
+
+// 3140 remove duplication -> 2256 recipe_id
 exports.getAllRecipeIds = () => {
-  const recipeIds = [];
+  let recipeIds = [];
 
   for (let i = 8; i <= 128; i += 8) {
     const searchResults = JSON.parse(
@@ -86,6 +104,8 @@ exports.getAllRecipeIds = () => {
       }
     });
   }
+
+  recipeIds = removeDuplicationArr(recipeIds);
 
   const recipeIdData = {
     status: 'crawled',
@@ -108,7 +128,7 @@ exports.getAllRecipeIdsMinFile = () => {
 };
 
 // MongoDB ObjectId generator
-exports.mongoObjectId = () => {
+exports.generateMongoObjectId = () => {
   const timestamp = ((new Date().getTime() / 1000) | 0).toString(16);
   return (
     timestamp +
@@ -117,5 +137,55 @@ exports.mongoObjectId = () => {
         return ((Math.random() * 16) | 0).toString(16);
       })
       .toLowerCase()
+  );
+};
+
+exports.generateUniqueObjectIdPerRecipe = (recipe_id) => {
+  let ObjectId;
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      `${__dirname}/JSONDataCrawled/recipe_id_ObjectId-0.json`,
+      'utf-8'
+    )
+  );
+
+  data.data.forEach((el) => {
+    if (el.id == recipe_id) {
+      ObjectId = el.id_Mongo;
+    }
+  });
+
+  return ObjectId;
+};
+
+exports.saveNormalizedSearchResultToFile = () => {
+  const arr = [];
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      `${__dirname}/JSONDataCrawled/seach-data-modified-0.json`,
+      'utf-8'
+    )
+  );
+
+  data.forEach((el) => {
+    el.recipes.forEach((rec) => {
+      arr.push(rec);
+    });
+  });
+
+  const beforeRemoveDuplication = arr.length;
+  const normalizedArr = removeObjectDuplicatedArr(arr, '_id');
+  const afterRemoveDuplication = normalizedArr.length;
+
+  console.log(
+    `Before: ${beforeRemoveDuplication} -- After: ${afterRemoveDuplication}`
+  );
+
+  const file = JSON.stringify(normalizedArr, null, 2);
+  fs.writeFileSync(
+    `${__dirname}/JSONDataCrawled/normalized-search-result.json`,
+    file
   );
 };

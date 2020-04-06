@@ -42,7 +42,9 @@ function startSearchSpider(counter) {
 
 // startSearchSpider(0);
 
+// helper.getAllRecipeIds();  // Generate recipe_id.json
 const executeDetailWorks = async (i, j) => {
+  console.log('Running detailSpider...');
   const recipeIds = helper.getAllRecipeIdsMinFile();
 
   const listIdsTemp = [];
@@ -59,11 +61,12 @@ const executeDetailWorks = async (i, j) => {
 
   const detailResults = await Promise.all(detailPromises);
 
-  helper.writesJsonToFile(detailResults, i, 'detail-data');
+  helper.writesJsonToFile(detailResults, j, 'detail-data');
+  console.log('Done !');
 };
 
 if (process.argv[2] === '--searchSpider') {
   startSearchSpider(0);
 } else if (process.argv[2] === '--detailSpider') {
-  executeDetailWorks(0, 3139);
+  executeDetailWorks(0, 2256);
 }
