@@ -1,10 +1,11 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Recipe = require('./../models/recipeModel');
 const helper = require('./helper');
 
+const Recipe = require('./../models/recipeModel');
 const SearchResult = require('./../models/searchResultModel');
+const Search = require('./../models/searchModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -109,6 +110,38 @@ const importSearchResult = async () => {
   process.exit();
 };
 
+// 127 search keywords
+const importSearch = async () => {
+  // helper.saveNormalizedSearchToFile();
+
+  try {
+    console.log('Importing SearchData to MongoDD...');
+
+    const searchs = JSON.parse(
+      fs.readFileSync(
+        `${__dirname}/JSONDataCrawled/normalized-search.json`,
+        'utf-8'
+      )
+    );
+
+    await Search.create(searchs);
+    console.log('SearchData successfully loaded!');
+  } catch (error) {
+    console.log(err);
+  }
+
+  process.exit();
+};
+
+const testAggre = async () => {
+  const result = await Search.findById('5e8ae09be97f841e211c372d').populate(
+    'recipes'
+  );
+
+  console.log(result);
+  process.exit();
+};
+
 if (process.argv[2] === '--importRecipe') {
   importRecipeData();
 } else if (process.argv[2] === '--deleteRecipe') {
@@ -117,4 +150,8 @@ if (process.argv[2] === '--importRecipe') {
   saveModifiedSearchData();
 } else if (process.argv[2] === '--importSearchResult') {
   importSearchResult();
+} else if (process.argv[2] === '--importSearch') {
+  importSearch();
+} else if (process.argv[2] === '--test') {
+  testAggre();
 }

@@ -189,3 +189,32 @@ exports.saveNormalizedSearchResultToFile = () => {
     file
   );
 };
+
+exports.saveNormalizedSearchToFile = () => {
+  const arr = [];
+
+  const data = JSON.parse(
+    fs.readFileSync(
+      `${__dirname}/JSONDataCrawled/seach-data-modified-0.json`,
+      'utf-8'
+    )
+  );
+
+  data.forEach((el) => {
+    const recipes_ObjectIds = [];
+
+    el.recipes.forEach((rec) => {
+      recipes_ObjectIds.push(rec._id);
+    });
+
+    const newObject = {
+      recipes: recipes_ObjectIds,
+      query: el.query,
+    };
+
+    arr.push(newObject);
+  });
+
+  const file = JSON.stringify(arr, null, 2);
+  fs.writeFileSync(`${__dirname}/JSONDataCrawled/normalized-search.json`, file);
+};

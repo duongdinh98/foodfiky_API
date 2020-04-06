@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const searchSchema = new mongoose.Schema({
-  count: {
-    type: Number,
-  },
   recipes: [
     {
       type: mongoose.Schema.ObjectId,
