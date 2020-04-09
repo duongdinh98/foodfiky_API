@@ -55,6 +55,26 @@ const deleteRecipeData = async () => {
   process.exit();
 };
 
+const deleteSearchResult = async () => {
+  try {
+    await SearchResult.deleteMany();
+    console.log('SearchResult data successfully deleted!');
+  } catch (err) {
+    console.log(err);
+  }
+  process.exit();
+};
+
+const deleteSearch = async () => {
+  try {
+    await Search.deleteMany();
+    console.log('Search data successfully deleted!');
+  } catch (err) {
+    console.log(err);
+  }
+  process.exit();
+};
+
 const addIdToSearchResult = () => {
   const data = [];
 
@@ -133,10 +153,8 @@ const importSearch = async () => {
   process.exit();
 };
 
-const testAggre = async () => {
-  const result = await Search.findById('5e8ae09be97f841e211c372d').populate(
-    'recipes'
-  );
+const testPopulate = async () => {
+  const result = await Search.findOne({ query: 'carrot' }).populate('recipes');
 
   console.log(result);
   process.exit();
@@ -150,8 +168,12 @@ if (process.argv[2] === '--importRecipe') {
   saveModifiedSearchData();
 } else if (process.argv[2] === '--importSearchResult') {
   importSearchResult();
+} else if (process.argv[2] === '--deleteSearchResult') {
+  deleteSearchResult();
 } else if (process.argv[2] === '--importSearch') {
   importSearch();
+} else if (process.argv[2] === '--deleteSearch') {
+  deleteSearch();
 } else if (process.argv[2] === '--test') {
-  testAggre();
+  testPopulate();
 }
