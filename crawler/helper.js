@@ -218,3 +218,28 @@ exports.saveNormalizedSearchToFile = () => {
   const file = JSON.stringify(arr, null, 2);
   fs.writeFileSync(`${__dirname}/JSONDataCrawled/normalized-search.json`, file);
 };
+
+// axios({
+//   method: 'get',
+//   url: 'http://bit.ly/2mTM3nY',
+//   responseType: 'stream',
+// }).then(function (response) {
+//   response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'));
+// });
+exports.downloadAImage = async (link) => {
+  try {
+    const imageName = link.split('/').pop();
+
+    const image = await axios({
+      method: 'get',
+      url: link,
+      responseType: 'stream',
+    });
+
+    image.data.pipe(
+      fs.createWriteStream(`${__dirname}/image-crawled/${imageName}`)
+    );
+  } catch (err) {
+    console.log(`Fail to download image with URL: ${link}`);
+  }
+};

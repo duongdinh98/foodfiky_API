@@ -6,12 +6,25 @@ const Search = require('./../models/searchModel');
 const SearchResult = require('./../models/searchResultModel');
 
 exports.getResult = async (req, res, next) => {
-  const keyword = req.params.keyword;
+  try {
+    const keyword = req.params.keyword;
 
-  const result = await Search.findOne({ query: keyword });
+    const result = await Search.findOne({ query: keyword });
 
-  res.status(200).json({
-    count: result.recipes.length,
-    recipes: result.recipes,
-  });
+    result.recipes.forEach((recipe) => {
+      recipe.image_url = `${
+        process.env.HOST_ADDRESS
+      }/image-crawled/${recipe.image_url.split('/').pop()}`;
+    });
+
+    res.status(200).json({
+      count: result.recipes.length,
+      recipes: result.recipes,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'Something went wrong, try again later !',
+    });
+  }
 };

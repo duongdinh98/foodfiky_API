@@ -5,6 +5,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
+const path = require('path');
 
 const searchRoute = require('./routes/searchRoutes');
 const recipeRoute = require('./routes/recipeRoutes');
@@ -14,6 +15,8 @@ const app = express();
 // Limit amount of data from req.body to 10kb to protect server from attacker(overload server)
 app.use(express.json({ limit: '10kb' })); // Like body-parser, using this middleware to attach req.body property, default in express
 app.use(express.urlencoded({ extended: true, limit: '10kb' })); // for using req.body when data was submitted by html-form
+
+app.use(express.static(path.join(__dirname, 'crawler')));
 
 // IMPLEMENT CORS (Cross-Origin-Resource-Sharing)
 // We can set 'cors' in specific route -> Read doc
