@@ -11,6 +11,8 @@
     "no-process-exit": "off",
     "no-param-reassign": "off",
     "no-return-await": "off",
+    "allow": ["~"],
+    "int32Hint": true,
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
