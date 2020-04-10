@@ -15,7 +15,10 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('Connected to remote Atlas MongoDB Server'));
+  .then(() => console.log('Connected to remote Atlas MongoDB Server'))
+  .catch((err) => {
+    console.log('Database connection error !');
+  });
 
 const port = process.env.PORT || 3000;
 

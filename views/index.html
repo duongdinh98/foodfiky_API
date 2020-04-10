@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>Forkify API - docs</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Forkify API documentation</h1>
+    <p class="description">This is the test API dedicated to the Forkify app</p>
+    <h4>Important details</h4>
+    <ul>
+        <li>supports up to 100 requests per hour</li>
+        <li>search for "pizza" or other meal from this list 🡒 <a href="./queries.html" class="search-queries-link">search queries</a></li>
+        <li>no need to use CORS proxy or API key</li>
+        <li>only GET requests allowed</li>
+    </ul>
+    </ul>
+    
+    <div class="divider"></div>
+
+    <h2>Search</h2>
+    <p class="description">Returns a list of recipes for a specific query</p>
+    <p>Path: <code>https://forkify-api.herokuapp.com/api/search</code></p>
+    <h3>Parameters</h3>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>q</td>
+        <td>Yes</td>
+        <td>Query text. For example <span class="highlighted-text">q=pizza</span>. See the list of all available queries 🡒 <a href="./phrases.html" class="search-queries-link">search queries</a></td>
+      </tr>
+    </table>
+    <p>Example URL: <code>https://forkify-api.herokuapp.com/api/search?q=pizza</code></p>
+
+    <div class="divider"></div>
+
+    <h2>Get</h2>
+    <p class="description">Returns the details about a specific recipe</p>
+    <p>Path: <code>https://forkify-api.herokuapp.com/api/get</code></p>
+    <h3>Parameters</h3>
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>rId</td>
+        <td>Yes</td>
+        <td>Recipe id. For example <span class="highlighted-text">rId=47746</span></td>
+      </tr>
+    </table>
+    <p>Example URL: <code>https://forkify-api.herokuapp.com/api/get?rId=47746</code></p>
+  </div>
+
+  <div class="divider"></div>
+
+</body>
+
+</html>
