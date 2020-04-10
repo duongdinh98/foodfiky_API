@@ -14,8 +14,7 @@ exports.getResult = async (req, res, next) => {
     });
   } catch (error) {
     res.status(404).json({
-      status: 'fail',
-      message: 'Something went wrong, try again later !',
+      error: `Cannot find the recipe with this id ${req.params.id}`,
     });
   }
 };

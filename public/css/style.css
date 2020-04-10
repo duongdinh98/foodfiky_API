@@ -100,3 +100,9 @@ code {
 .phrases-list li {
   margin-bottom: 10px;
 }
+
+.page-err {
+  margin: 0 auto;
+  font-size: 40px;
+  text-align: center;
+}

@@ -22,9 +22,9 @@ exports.getResult = async (req, res, next) => {
       recipes: result.recipes,
     });
   } catch (error) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Something went wrong, try again later !',
+    res.status(400).json({
+      error:
+        "Couldn't find recipe with that name. Please visit https://f2fapi.herokuapp.com/queries.html for all available search queries",
     });
   }
 };

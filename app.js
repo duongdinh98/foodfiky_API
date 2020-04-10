@@ -56,10 +56,7 @@ app.use('/api/v1/recipe', recipeRoute);
 // If there is no middleware was matched and run above, this is the final middlewares in req-res-cycle
 // Therefore, it will handle all route was not declared.
 app.all('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'fail',
-    error: 'Can not find this URL',
-  });
+  res.sendFile(path.join(__dirname, 'views/pageNotFound.html'));
 });
 
 module.exports = app;
