@@ -6,6 +6,7 @@ const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
 const path = require('path');
+const responseTime = require('response-time');
 
 const searchRoute = require('./routes/searchRoutes');
 const recipeRoute = require('./routes/recipeRoutes');
@@ -13,6 +14,8 @@ const viewRoute = require('./routes/viewRoutes');
 
 const app = express();
 
+// Set X-Response-Time: 575.674ms in Network/Name of api/Header
+app.use(responseTime());
 // Limit amount of data from req.body to 10kb to protect server from attacker(overload server)
 app.use(express.json({ limit: '10kb' })); // Like body-parser, using this middleware to attach req.body property, default in express
 app.use(express.urlencoded({ extended: true, limit: '10kb' })); // for using req.body when data was submitted by html-form

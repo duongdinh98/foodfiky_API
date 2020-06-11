@@ -1,30 +1,54 @@
 const Search = require('./../models/searchModel');
+const redis = require('redis');
 
 // Because searchResultModel.js was not compiled nowhere so cause error
 // UnhandledPromiseRejectionWarning: MissingSchemaError: Schema hasn't been registered for model "SearchResult".
 // FUCK FUCK WAIT ME WHOLE EVENING !!!
 const SearchResult = require('./../models/searchResultModel');
+const client = redis.createClient();
 
 exports.getResult = async (req, res, next) => {
-  try {
-    const keyword = req.params.keyword;
+  const keyword = req.params.keyword;
 
-    const result = await Search.findOne({ query: keyword });
+  // Try fetching the result from Redis first in case we have it cached
+  client.get(`search-result:${keyword}`, async (err, result) => {
+    if (result) {
+      const resultAsJSON = JSON.parse(result);
+      return res.status(200).json(resultAsJSON);
+    } else {
+      // Key does not exist in Redis store
+      // Fetch data directly from Mongo Server
+      const result = await Search.findOne({ query: keyword });
 
-    result.recipes.forEach((recipe) => {
-      recipe.image_url = `${
-        process.env.HOST_ADDRESS
-      }/image-crawled/${recipe.image_url.split('/').pop()}`;
-    });
+      if (result) {
+        result.recipes.forEach((recipe) => {
+          recipe.image_url = `${
+            process.env.HOST_ADDRESS
+          }/image-crawled/${recipe.image_url.split('/').pop()}`;
+        });
 
-    res.status(200).json({
-      count: result.recipes.length,
-      recipes: result.recipes,
-    });
-  } catch (error) {
-    res.status(400).json({
-      error:
-        "Couldn't find recipe with that name. Please visit https://f2fapi.herokuapp.com/queries.html for all available search queries",
-    });
-  }
+        const responseData = {
+          count: result.recipes.length,
+          recipes: result.recipes,
+        };
+
+        // Save the API data response in Redis store (stored 3600s )
+        client.setex(
+          `search-result:${keyword}`,
+          3600,
+          JSON.stringify({
+            source: 'Food API Redis Cache',
+            ...responseData,
+          })
+        );
+
+        res.status(200).json(responseData);
+      } else {
+        res.status(400).json({
+          error:
+            "Couldn't find recipe with that name. Please visit https://f2fapi.herokuapp.com/queries.html for all available search queries",
+        });
+      }
+    }
+  });
 };
