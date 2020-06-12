@@ -7,6 +7,9 @@ services:
       - 6464:6464
     env_file:
       - config.env
+    # environment: # config in .env
+    #   - REDIS_HOST=${REDIS_HOST}
+    #   - REDIS_PORT=${REDIS_PORT}
     restart: unless-stopped
     depends_on:
       - redis
