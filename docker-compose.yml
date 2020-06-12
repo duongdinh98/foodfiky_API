@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    image: node/food-api:v1
+    ports:
+      - 6464:6464
+    env_file:
+      - config.env
+    restart: unless-stopped
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - .docker/data/redis:/data
+    restart: unless-stopped

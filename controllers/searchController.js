@@ -5,7 +5,10 @@ const redis = require('redis');
 // UnhandledPromiseRejectionWarning: MissingSchemaError: Schema hasn't been registered for model "SearchResult".
 // FUCK FUCK WAIT ME WHOLE EVENING !!!
 const SearchResult = require('./../models/searchResultModel');
-const client = redis.createClient();
+const client = redis.createClient({
+  host: process.env.REDIS_HOST || '127.0.0.1', // this must match the container name of redis image
+  port: process.env.REDIS_PORT || 6379,
+});
 
 exports.getResult = async (req, res, next) => {
   const keyword = req.params.keyword;
